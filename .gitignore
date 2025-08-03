@@ -1,0 +1,16 @@
+# --- Build Outputs ---
+/build/
+/bin/
+/obj/
+/out/
+
+# --- Compiled Files ---
+*.o
+*.obj
+*.so
+*.dll
+*.exe
+*.a
+*.lib
+*.gch
+*.pch
