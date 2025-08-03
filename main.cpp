@@ -1,3 +1,4 @@
+#include <cmath>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -12,9 +13,9 @@ const char *vertexShaderSource = "#version 330 core\n"
 
 const char *fragmentShaderSource = "#version 330 core\n"
 								   "out vec4 FragColor;\n"
-								   "in vec4 vertexColor;\n"
+								   "uniform vec4 ourColor;\n"
 								   "void main() {\n"
-								   "	FragColor = vertexColor;"
+								   "	FragColor = ourColor;"
 								   "}\0";
 
 int main() {
@@ -116,6 +117,13 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glUseProgram(shaderProgram);
+
+		float timeValue = glfwGetTime();
+		float greenValue = std::sin(timeValue) / 2.0f + 0.5f;
+		int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+		glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+		std::cout << "Greeen Value: "<< greenValue << std::endl;
+
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
