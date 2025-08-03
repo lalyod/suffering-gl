@@ -4,14 +4,17 @@
 
 const char *vertexShaderSource = "#version 330 core\n"
 								 "layout (location = 0) in vec3 aPos;\n"
+								 "out vec4 vertexColor;\n"
 								 "void main() {\n"
 								 "	gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+								 "	vertexColor = vec4(0.5, 0.0, 0.0, 1.0);\n"
 								 "}\0";
 
 const char *fragmentShaderSource = "#version 330 core\n"
 								   "out vec4 FragColor;\n"
+								   "in vec4 vertexColor;\n"
 								   "void main() {\n"
-								   "	FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);"
+								   "	FragColor = vertexColor;"
 								   "}\0";
 
 int main() {
@@ -33,7 +36,7 @@ int main() {
 		std::cout << "Failed to init GLAD" << std::endl;
 		return -1;
 	} else {
-		std::cout << "Success to init GLAD";
+		std::cout << "Success to init GLAD" << std::endl;
 	}
 
 	float vertices[] = {
@@ -103,6 +106,10 @@ int main() {
 	glDeleteShader(fragmentShader);
 
 	glViewport(0, 0, 800, 600);
+
+	int nrAttributes;
+	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
+	std::cout << "Maxsimum nr of vertexts supported:" << nrAttributes << std::endl;
 
 	while(!glfwWindowShouldClose(window)) {
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
