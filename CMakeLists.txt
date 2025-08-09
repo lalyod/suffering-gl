@@ -3,8 +3,6 @@ project(MyApp)
 
 set(CMAKE_CXX_STANDART 17)
 
-add_subdirectory(glad)
-
 include_directories(include)
 
 add_executable(myapp main.cpp src/glad.c)
